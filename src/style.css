@@ -8,9 +8,16 @@
   margin-top: 0;
 }
 
-.entry:disabled {
-  opacity: 0.5;
+button.entry:disabled {
   cursor: not-allowed;
+}
+
+button.entry:disabled:not(.selected) {
+  opacity: 0.5;
+}
+
+button.entry.selected:disabled {
+  opacity: 1;
 }
 
 body {
@@ -155,6 +162,11 @@ button.entry:active {
   background: white;
   color: black;
 }
+
+button.entry.selected .entry-count:hover {
+  background: white;
+  color: black;
+}
 button.entry {
   line-height: 1.3;
 }
@@ -197,15 +209,22 @@ button.entry {
 
 #title-text,
 #options-intro,
-.section-description,
-.entry-description {
+.section-description {
   color: #222;
 }
 
-.section-rules,
+.entry-description,
 .entry-requires {
+  color: inherit;
+}
+
+.section-rules {
   font-size: 0.95rem;
   color: #444;
+}
+
+.entry-requires {
+  font-size: 0.95rem;
 }
 
 .entry-name {
@@ -219,4 +238,18 @@ button.entry {
 
 .setup-item {
   margin-left: 16px;
+}
+
+.current-points {
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid black;
+  font-weight: bold;
+}
+
+button.entry.selected .entry-name,
+button.entry.selected .entry-description,
+button.entry.selected .entry-requires,
+button.entry.selected .entry-count {
+  color: white;
 }

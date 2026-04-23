@@ -1,143 +1,481 @@
 const gameData = {
   startingPoints: 100,
   titleText:
-    "Configure your ark ship by allocating points across its systems, drives, drones, and colonist infrastructure.",
-
+    "You are on an interstellar journey to a paradisiacal planet, traveling upon a subluminal-speed space ark. Life on the target planet will be pleasant, as you will be joining a prosperous pre-established pioneer community, will have your own private residence, and are guaranteed an agreeable profession. Choose a points limit (100 = hard, 200 = medium, 300 = easy). Then, design the conditions of your journey!",
   optionsIntro:
-    "Each section below represents a major subsystem of the vessel. Some categories are mandatory, some optional, and some permit repeated selections.",
-
+    "Each section below represents a configuration of the vessel, to make your journey more agreeable. Some categories are mandatory, some optional, and some permit repeated selections.",
   sections: [
     {
-      id: "section-1",
-      title: "Core Systems",
-      description:
-        "These are the baseline technical systems that determine how the ship functions during ordinary operation.",
-
-      singlepick: true,
+      id: "section-0",
+      title: "Thruster Arrays",
+      description: "The base travel time to the new world is 20 years.",
+      singlepick: false,
       mandatory: false,
       exclusive: false,
       items: [
         {
-          id: "core-a",
-          name: "Survey Array",
-          description: "Basic long-range sensor package",
-          cost: 10,
+          id: "time-a",
+          name: "Thruster Array",
+          description: "Reduce travel time by 1 year.",
+          maxPicks: 19,
+          cost: 5,
+        },
+      ],
+    },
+    {
+      id: "section-1",
+      title: "Gravitational Centrifuge",
+      description:
+        "Upon arrival, your muscle mass will be severely depleted, and you will require 12 months of rehabilitation to regain full mobility. A centrifuge can simulate gravity to mitigate this effect.",
+      singlepick: true,
+      mandatory: true,
+      exclusive: true,
+      items: [
+        {
+          id: "grav-a",
+          name: "Zero Gravity",
+          description: "Gravity is 0g. Muscle atrophy is severe.",
+          cost: 0,
         },
         {
-          id: "core-b",
-          name: "Navigation Spine",
-          description: "Enhanced route-planning core",
-          cost: 20,
+          id: "grav-b",
+          name: "Constant Centrifuge",
+          description: "Sets gravity to 1g",
+          cost: 4,
+        },
+        {
+          id: "grav-c",
+          name: "Adjustable Centrifuge",
+          description:
+            "Permits gravity adjustments during the voyage between 0g and 3g",
+          cost: 6,
         },
       ],
     },
     {
       id: "section-2",
-      title: "Command Modules",
+      title: "Sleeping Quarters",
       singlepick: true,
       mandatory: true,
-      exclusive: false,
+      exclusive: true,
       items: [
         {
-          id: "command-a",
-          name: "Command Nexus",
-          description: "Standard bridge and coordination deck",
-          cost: 12,
+          id: "sleep-a",
+          name: "Somni-tube",
+          description: "A Spartan and cramped sleeping tube",
+          size: 3,
+          cost: 0,
         },
         {
-          id: "command-b",
-          name: "Tactical Choir",
-          description: "Distributed battle-management station",
-          cost: 18,
+          id: "sleep-b",
+          name: "Tiny Cabin",
+          description: "A diminutive cabin with a small single bed",
+          size: 12,
+          cost: 3,
+        },
+        {
+          id: "sleep-c",
+          name: "Captain's Suite",
+          description:
+            "A spacious room with a writing-desk and lamp, king size bed, and sofa chair. ",
+          size: 40,
+          cost: 6,
         },
       ],
     },
     {
       id: "section-3",
-      title: "Primary Drives",
+      title: "Bathing Facilities",
       singlepick: true,
-      mandatory: false,
+      mandatory: true,
       exclusive: true,
       items: [
         {
-          id: "drive-a",
-          name: "Ion Sail",
-          description: "Reliable low-draw propulsion system",
-          cost: 14,
+          id: "toilet-a",
+          name: "Sani-tube",
+          description:
+            "A cramped tube containing a toilet and spray shower, with 20L/day capacity, cold water only. (note: average shower on earth is 60L)",
+          size: 3,
+          cost: 0,
         },
         {
-          id: "drive-b",
-          name: "Gravitic Lance",
-          description: "High-output deep-space drive",
-          cost: 24,
+          id: "toilet-b",
+          name: "Bathroom",
+          description:
+            "comfortable bathroom, with a shower, bidet, and large sink. Adds 60L water per day, and allows water to be scalding hot or ice cold if desired.",
+          cost: 3,
+          size: 18,
+        },
+        {
+          id: "toilet-c",
+          name: "Jacuzzi & Sauna Suite",
+          description:
+            "Luxurious bathroom with a jacuzzi tub, sauna, and multi-setting shower. Adds 120L water per day, and allows water to be scalding hot or ice cold if desired.",
+          cost: 6,
+          size: 40,
+        },
+        {
+          id: "toilet-d",
+          name: "Swimming Pool",
+          description:
+            "A Jacuzzi suite (as above), with an adjoining 10m x 5m x 3m swimming pool.",
+          cost: 15,
+          size: 200,
+        },
+      ],
+    },
+    {
+      id: "section-3b",
+      title: "Living Quarters",
+      singlepick: true,
+      mandatory: true,
+      exclusive: true,
+      items: [
+        {
+          id: "living-a",
+          name: "Habi-cube",
+          description: "A cramped cube with a small table and chair.",
+          size: 8,
+          cost: 0,
+        },
+        {
+          id: "living-b",
+          name: "Living Room",
+          description:
+            "A comfortable living room with a sofa, armchair, coffee table, and writing desk.",
+          size: 48,
+          cost: 3,
+        },
+        {
+          id: "living-c",
+          name: "Vast Chamber",
+          description: "A vast hall, 40x20x10m. in dimensions.",
+          size: 8000,
+          cost: 5,
         },
       ],
     },
     {
       id: "section-4",
-      title: "Ark Core",
-      singlepick: true,
-      mandatory: true,
-      exclusive: true,
-      items: [
-        {
-          id: "ark-a",
-          name: "Pilgrim Core",
-          description: "Compact colony-support heart module",
-          cost: 25,
-        },
-        {
-          id: "ark-b",
-          name: "Cathedral Core",
-          description: "Expanded command-and-life-support nucleus",
-          cost: 35,
-        },
-      ],
-    },
-    {
-      id: "section-5",
-      title: "Drone Wings",
+      title: "Butlerian Computers & Entertainment",
+      description:
+        "no Internet. No AI generators allowed, inc ChatGPT, Claude, sora AI, etc. No games or programs that incorporate AI, massive file dumps, or otherwise violate the Butlerian spirit.",
       singlepick: false,
       mandatory: false,
       exclusive: false,
       items: [
         {
-          id: "drone-a",
-          name: "Repair Drone Swarm",
-          description: "Hull repair and maintenance units",
-          cost: 6,
+          id: "comp-a",
+          name: "Macbook",
+          description:
+            "A MacBook Pro (M1 chip) with up to 3 conventional programs/games of your choice installed.",
+          cost: 25,
         },
         {
-          id: "drone-b",
-          name: "Harvest Drone Swarm",
-          description: "Resource capture and salvage units",
-          cost: 8,
+          id: "comp-b",
+          name: "Gaming PC",
+          description:
+            "A high quality gaming PC with up to 5 programs/games of your choice installed, includes quality mouse and accessories, and a gaming chair.",
+          cost: 35,
+        },
+        {
+          id: "comp-c",
+          name: "Extra Program/Game",
+          description: "(requires computer) One additional program/game.",
+          cost: 3,
+        },
+        {
+          id: "comp-d",
+          name: "Website Archive",
+          description:
+            "(requires computer) A complete save of any one website you wish, as it was on the day of departure (eg., Wikipedia, scp wiki, etc.). ONLY SAVES TEXT- no images or video. Does not include downloadable content (eg., PDF/Epub books from Anna's Archive or articles from JSTOR)",
+          cost: 1,
+        },
+        {
+          id: "comp-e",
+          name: "Large Flatscreen TV & DVD Player",
+          description:
+            "A large flatscreen TV with a DVD player and a selection of 20 DVDs of your choice.",
+          cost: 2,
+        },
+        {
+          id: "comp-f",
+          name: "Extra DVDs",
+          description: "20 extra DVDs.",
+          cost: 1,
+        },
+        {
+          id: "comp-g",
+          name: "High-Quality Stereo System",
+          description:
+            "A high-quality stereo system with a selection of 50 music CDs or vinyls of your choice.",
+          cost: 2,
+        },
+        {
+          id: "comp-h",
+          name: "Extra Music",
+          description: "50 extra music CDs or vinyls.",
+          cost: 1,
+        },
+      ],
+    },
+    {
+      id: "section-5",
+      title: "Windows & Lighting",
+      singlepick: true,
+      mandatory: true,
+      exclusive: false,
+      items: [
+        {
+          id: "window-a",
+          name: "White Neon Lights",
+          description:
+            "Ship default. Unadorned grey walls with white neon lighting, constantly on.",
+          cost: 0,
+        },
+        {
+          id: "window-d",
+          name: "Space Windows",
+          description:
+            "Large viewports to gaze out at the vastness of space, placed wherever you wish throuhgout the ship. Adjustable opacity.",
+          cost: 1,
+        },
+        {
+          id: "window-b",
+          name: "Environmental Lighting",
+          description:
+            "Environmental lighting, adjustable colors and tones and schedule-setting to simulate night/day, seasons, etc.",
+          cost: 1,
+        },
+
+        {
+          id: "window-c",
+          name: "Virtual Windows",
+          description:
+            "Virtual windows with adjustable views and schedules to simulate night/day, seasons, etc. Selection of terrestrial landscapes to choose from, but exclusively nature and landscapes. Can simulate rainfall, sea waves, waving wheat fields, etc., and play realistic nature sounds.",
+          cost: 2,
         },
       ],
     },
     {
       id: "section-6",
-      title: "Colonist Assets",
-      singlepick: false,
+      title: "Food",
+      singlepick: true,
       mandatory: true,
       exclusive: false,
       items: [
         {
-          id: "colonist-a",
-          name: "Cryo Pod Bank",
-          description: "Suspended colonist population block",
-          cost: 9,
+          id: "food-a",
+          name: "Nutri-Slop",
+          description:
+            "Three rations of flavorless grey nutrient slop per day.",
+          cost: 0,
         },
         {
-          id: "colonist-b",
-          name: "Seed Vault",
-          description: "Genetic archive and agricultural reserve",
-          cost: 11,
+          id: "food-b",
+          name: "Fast-Food Synthesizer",
+          description:
+            "Automatically generates food from the menus of 3 fast food chains (you choose upon selection). Max 3,000 calories per day. Excludes alcohol.",
+          cost: 1,
+        },
+        {
+          id: "food-c",
+          name: "Kitchen and Ingredients Synthesizer",
+          description:
+            "Generates fresh ingredients and allows for cooking and baking. Max 4,000 calories per day. Excludes alcohol.",
+          cost: 3,
+          size: 32,
+        },
+        {
+          id: "food-d",
+          name: "Gourmet Synthesizer",
+          description:
+            "Automatically generates gourment meals from any cuisine in the world. Max 3,000 calories per day. Excludes alcohol.",
+          cost: 5,
+        },
+        {
+          id: "food-e",
+          name: "Alcohol Synthesizer",
+          description:
+            "Generates alcoholic beverages of any type, from beer and wine to complex cocktails. Max 5 standard drinks per day.",
+          cost: 1,
+        },
+      ],
+    },
+    {
+      id: "section-7",
+      title: "Reading, Gaming, & Art Materials",
+      description:
+        "The ship comes with one copy of the Gideon bible and 12 National Geographic magazines published between 1985 and 1999.",
+      singlepick: false,
+      mandatory: false,
+      exclusive: false,
+      items: [
+        {
+          id: "book-a",
+          name: "Twenty Books",
+          description: "Twenty books of your choice.",
+          cost: 1,
+        },
+        {
+          id: "book-b",
+          name: "Drawing and Painting Materials",
+          description:
+            "5 years' worth of high quality drawing and painting materials, including pencils, pens, markers, pastels, paints, brushes, and high quality paper.",
+          cost: 2,
+        },
+        {
+          id: "book-c",
+          name: "Board and Card Games",
+          description:
+            "A selection of 10 board and card games of your choice. Card games cannot exceed 5,000 cards total.",
+          cost: 1,
+        },
+        {
+          id: "book-d",
+          name: "Crafting Materials",
+          description:
+            "5 years' worth of crafting materials for any one type of simple project not requiring complex equipment (knitting, sewing, etc.).",
+          cost: 2,
+        },
+      ],
+    },
+    {
+      id: "section-8",
+      title: "Interior decoration",
+      singlepick: true,
+      mandatory: true,
+      exclusive: true,
+      items: [
+        {
+          id: "interior-a",
+          name: "Grey, featureless walls",
+          description: "Grey, featureless walls.",
+          cost: 0,
+        },
+        {
+          id: "interior-b",
+          name: "Washiki",
+          description:
+            "Refit the whole ship with tatami, shōji, and tasteful Japanese decorative touches.",
+          cost: 1,
+        },
+        {
+          id: "interior-c",
+          name: "Oxford",
+          description:
+            "Refit the whole ship with dark wood paneling, leather furniture, and classic Oxford-style decor.",
+          cost: 1,
+        },
+        {
+          id: "interior-d",
+          name: "Redesign",
+          description:
+            "Fit the whole ship with any other unified aesthetic or interior decor of your choice (eg., cyberpunk, boho, Century modern, Wuxia, Arabian nights, etc.)",
+          cost: 2,
+        },
+      ],
+    },
+    {
+      id: "section-9",
+      title: "Special Habitat Units",
+      singlepick: true,
+      mandatory: false,
+      exclusive: false,
+      items: [
+        {
+          id: "hab-a",
+          name: "Greenhouse",
+          description:
+            "A greenhouse with a selection of plants of your choice, complete with water, soil, and nutrient system. (4mx4mx3m). Contains up to 30 plants or small trees of your choice, and 20 years’ worth of seeds to replace them if needed.",
+          cost: 15,
+          size: 60,
+        },
+        {
+          id: "hab-b",
+          name: "Gymnasium",
+          description:
+            "A gym with exercise bike, treadmill, weights, yoga mats, and other standard gym equipment. Largely useless without gravity.",
+          cost: 7,
+          size: 60,
+        },
+        {
+          id: "hab-c",
+          name: "Library",
+          description:
+            "A cosy wood-paneled library with comfortable seating and reading lamps. Includes 100 books of your choice.",
+          cost: 10,
+          size: 120,
+        },
+        {
+          id: "hab-d",
+          name: "Sculpting and Ceramics Studio",
+          description:
+            "A sculpting and ceramics studio, with a selection of high quality clays, sculpting tools, and a kiln capable of firing your creations. Enough materials for 10 years.",
+          cost: 10,
+          size: 80,
+        },
+        {
+          id: "hab-e",
+          name: "Modeling and Wargames Studio",
+          description:
+            " A modeling and wargames studio, with high quality modeling materials, paints, and tools, and a large table for gaming. Includes 10 years' worth of materials.",
+          cost: 10,
+          size: 80,
+        },
+        {
+          id: "hab-f",
+          name: "Music Studio",
+          description:
+            "A music studio with a high quality microphone, MIDI keyboard, and recording and mixing software installed on the ship's computer. 5 musical instruments of your choice.",
+          cost: 10,
+          size: 40,
+        },
+        {
+          id: "hab-g",
+          name: "Woodshop",
+          description:
+            "A woodshop with a selection of high quality woodworking tools, materials, and safety equipment. Includes 10 years' worth of materials.",
+          cost: 10,
+          size: 80,
+        },
+      ],
+    },
+    {
+      id: "section-10",
+      title: "Humans",
+      description:
+        "You can agree to travel on a joint ark-ship alongside other humans, if you wish. If any of you commit any crimes during the voyage, you will be held responsible upon arrival at the destination. Additional humans' living quarters etc. are the same as your own, but no other facilities are expanded.",
+      singlepick: false,
+      mandatory: false,
+      exclusive: false,
+      items: [
+        {
+          id: "hum-a",
+          name: "Random Human",
+          description:
+            "One random human, aged 18-35. Their nationality, personality, spoken languages, values, and behavior are completely unpredictable.",
+          cost: 1,
+        },
+        {
+          id: "hum-b",
+          name: "Semi-Random Human",
+          description:
+            "One semi-random human, aged 18-35. You may select their nationality and gender, but not their temperament, behavior, etc.",
+          cost: 3,
+        },
+        {
+          id: "hum-c",
+          name: "Highly Selected Human",
+          description:
+            "One human, aged 18-35. You may specify their nationality, gender, education level, degree (if applicable), profession, and 1 hobby.",
+          cost: 5,
         },
       ],
     },
   ],
 };
+
 let points = gameData.startingPoints;
 const selectedCounts = {};
 
@@ -327,11 +665,17 @@ function updateCurrentSetupDisplay() {
   });
 }
 function canSelectItem(section, item) {
+  const currentCount = getItemCount(item.id);
+
   if (item.requires && !hasChosenItem(item.requires)) {
     return false;
   }
 
   if (points < item.cost) {
+    return false;
+  }
+
+  if (item.maxPicks !== undefined && currentCount >= item.maxPicks) {
     return false;
   }
 
@@ -362,7 +706,7 @@ function getSectionRulesText(section) {
   }
 
   if (!exclusive && mandatory && !singlepick) {
-    return "You must select at least one of the following. Each item may be chosen any number of times.";
+    return "You must select at least one of the following. Each item may be chosen multiple times.";
   }
 
   if (!exclusive && !mandatory && singlepick) {
@@ -370,7 +714,7 @@ function getSectionRulesText(section) {
   }
 
   if (!exclusive && !mandatory && !singlepick) {
-    return "You may select any number of the following. Each item may be chosen any number of times.";
+    return "You may select any number of the following. Each item may be chosen multiple times.";
   }
 
   return "";
@@ -398,7 +742,7 @@ function selectItem(section, item) {
 
   // For single-pick or exclusive sections, clicking an already-selected item deselects it.
   if (currentCount > 0) {
-    reduceItemCount(item);
+    reduceItemCount(section, item);
     return;
   }
   if (!canSelectItem(section, item)) {
@@ -429,11 +773,31 @@ function selectItem(section, item) {
   updateCurrentSetupDisplay();
   renderOptions();
 }
+function getTotalSelectedCountForSection(sectionId) {
+  let total = 0;
 
-function reduceItemCount(item) {
+  gameData.sections.forEach((section) => {
+    if (section.id !== sectionId) {
+      return;
+    }
+
+    section.items.forEach((item) => {
+      total += getItemCount(item.id);
+    });
+  });
+
+  return total;
+}
+function reduceItemCount(section, item) {
   const count = getItemCount(item.id);
 
   if (count <= 0) {
+    return;
+  }
+
+  const totalSelectedInSection = getTotalSelectedCountForSection(section.id);
+
+  if (section.mandatory && totalSelectedInSection <= 1) {
     return;
   }
 
@@ -507,7 +871,9 @@ function renderOptions() {
         button.classList.add("selected");
       }
 
-      if (!isSelected && !canSelectItem(section, item)) {
+      const atMaxPicks = item.maxPicks !== undefined && count >= item.maxPicks;
+
+      if ((!isSelected && !canSelectItem(section, item)) || atMaxPicks) {
         button.disabled = true;
       }
 
@@ -522,7 +888,13 @@ function renderOptions() {
       if (item.description) {
         const itemDescription = document.createElement("div");
         itemDescription.className = "entry-description";
-        itemDescription.textContent = item.description;
+
+        if (item.maxPicks !== undefined) {
+          itemDescription.textContent = `${item.description} Max picks: ${item.maxPicks}.`;
+        } else {
+          itemDescription.textContent = item.description;
+        }
+
         textSpan.appendChild(itemDescription);
       }
 
@@ -542,7 +914,7 @@ function renderOptions() {
 
         countBadge.addEventListener("click", (event) => {
           event.stopPropagation();
-          reduceItemCount(item);
+          reduceItemCount(section, item);
         });
 
         button.appendChild(countBadge);
