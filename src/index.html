@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ark Ship Odyssey</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <aside class="sidebar">
+        <div class="section sticky-panel">
+          <h2>Current Configuration:</h2>
+          <ul id="current-setup"></ul>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <div class="section">
+          <h1>Ark Ship Odyssey</h1>
+          <p id="title-text"></p>
+
+          <div class="top-controls">
+            <button id="reset-button" type="button">Reset</button>
+
+            <input
+              id="points-input"
+              type="number"
+              value="100"
+              min="0"
+              step="1"
+            />
+
+            <button id="set-points-button" type="button">
+              Set Points Value
+            </button>
+          </div>
+        </div>
+
+        <div class="section" id="points">
+          <h2>Points Remaining:</h2>
+          <span id="points-remaining"></span>
+        </div>
+
+        <div class="section" id="options-section">
+          <h2>Available Options:</h2>
+          <p id="options-intro"></p>
+          <div id="options-container"></div>
+        </div>
+      </main>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
