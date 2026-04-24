@@ -1,7 +1,7 @@
 const gameData = {
   startingPoints: 100,
   titleText:
-    "You are on an interstellar journey to a paradisiacal planet, traveling upon a subluminal-speed space ark. Life on the target planet will be pleasant, as you will be joining a prosperous pre-established pioneer community, will have your own private residence, and are guaranteed an agreeable profession. Choose a points limit (100 = hard, 200 = medium, 300 = easy). Then, design the conditions of your journey!",
+    "You are on an interstellar journey to a paradisiacal planet, traveling upon a subluminal-speed space ark. Life on the target planet will be pleasant, as you will be joining a prosperous pre-established pioneer community, will have your own private residence, and are guaranteed an agreeable profession. Choose a points limit (100 = hard, 150 = medium, 200 = easy). Then, design the conditions of your journey!",
   optionsIntro:
     "Each section below represents a configuration of the vessel, to make your journey more agreeable. Some categories are mandatory, some optional, and some permit repeated selections.",
   sections: [
@@ -152,6 +152,35 @@ const gameData = {
           description: "A vast hall, 40x20x10m. in dimensions.",
           size: 8000,
           cost: 5,
+        },
+      ],
+    },
+    {
+      id: "section-3c",
+      title: "Air Filtration",
+      singlepick: true,
+      mandatory: true,
+      exclusive: true,
+      items: [
+        {
+          id: "air-a",
+          name: "Stale, Recycled Air",
+          description:
+            "Air filtration system with minimal filtration. Often smells musty.",
+          cost: 0,
+        },
+        {
+          id: "air-b",
+          name: "Air Filtration",
+          description: "Maintains a reasonable level of air quality.",
+          cost: 2,
+        },
+        {
+          id: "air-c",
+          name: "High-quality Air Filtration",
+          description:
+            "Superb air quality, can also reproduce fragrances and natural smells of grass, rain, lavender, etc.",
+          cost: 4,
         },
       ],
     },
@@ -476,6 +505,7 @@ const gameData = {
   ],
 };
 
+let currentBasePoints = gameData.startingPoints;
 let points = gameData.startingPoints;
 const selectedCounts = {};
 
@@ -484,9 +514,10 @@ const setupList = document.getElementById("current-setup");
 const optionsContainer = document.getElementById("options-container");
 const titleTextEl = document.getElementById("title-text");
 const optionsIntroEl = document.getElementById("options-intro");
-const pointsInput = document.getElementById("points-input");
 const resetButton = document.getElementById("reset-button");
-const setPointsButton = document.getElementById("set-points-button");
+const hardButton = document.getElementById("hard-button");
+const mediumButton = document.getElementById("medium-button");
+const easyButton = document.getElementById("easy-button");
 
 function updatePointsDisplay() {
   pointsEl.textContent = points;
@@ -535,26 +566,26 @@ function recalculatePointsFromBase(basePoints) {
 }
 
 function resetAll() {
-  const basePoints = Number(pointsInput.value) || 0;
-
   clearAllSelections();
   initializeMandatoryDefaults();
-  recalculatePointsFromBase(basePoints);
+  recalculatePointsFromBase(currentBasePoints);
 
   updatePointsDisplay();
   updateCurrentSetupDisplay();
   renderOptions();
 }
+function setActiveDifficultyButton(button) {
+  [hardButton, mediumButton, easyButton].forEach((btn) => {
+    btn.classList.remove("active");
+  });
 
-function applyPointsValue() {
-  const basePoints = Number(pointsInput.value) || 0;
-  recalculatePointsFromBase(basePoints);
-
-  updatePointsDisplay();
-  updateCurrentSetupDisplay();
-  renderOptions();
+  button.classList.add("active");
 }
 
+function setDifficultyPoints(basePoints) {
+  currentBasePoints = basePoints;
+  resetAll();
+}
 function getItemCount(itemId) {
   return selectedCounts[itemId] || 0;
 }
@@ -934,13 +965,24 @@ function renderOptions() {
 resetButton.addEventListener("click", () => {
   resetAll();
 });
+hardButton.addEventListener("click", () => {
+  setDifficultyPoints(100);
+  setActiveDifficultyButton(hardButton);
+});
 
-setPointsButton.addEventListener("click", () => {
-  applyPointsValue();
+mediumButton.addEventListener("click", () => {
+  setDifficultyPoints(150);
+  setActiveDifficultyButton(mediumButton);
+});
+
+easyButton.addEventListener("click", () => {
+  setDifficultyPoints(200);
+  setActiveDifficultyButton(easyButton);
 });
 initializeMandatoryDefaults();
-recalculatePointsFromBase(Number(pointsInput.value) || gameData.startingPoints);
+recalculatePointsFromBase(currentBasePoints);
 renderPageText();
 updatePointsDisplay();
 updateCurrentSetupDisplay();
 renderOptions();
+setActiveDifficultyButton(hardButton);

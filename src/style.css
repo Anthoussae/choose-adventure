@@ -253,3 +253,8 @@ button.entry.selected .entry-requires,
 button.entry.selected .entry-count {
   color: white;
 }
+
+.top-controls button.active {
+  background: black;
+  color: white;
+}
