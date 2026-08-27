@@ -18,7 +18,7 @@ const gameData = {
           name: "Thruster Array",
           description: "Reduce travel time by 1 year.",
           maxPicks: 19,
-          cost: 5,
+          cost: 4,
         },
       ],
     },
@@ -474,7 +474,7 @@ const gameData = {
       id: "section-10",
       title: "Humans",
       description:
-        "You can agree to travel on a joint ark-ship alongside other humans, if you wish. If any of you commit any crimes during the voyage, you will be held responsible upon arrival at the destination. Additional humans' living quarters etc. are the same as your own, but no other facilities are expanded.",
+        "You can agree to travel on a joint ark-ship alongside other humans, if you wish. If any of you commit any crimes during the voyage, you will be held responsible upon arrival at the destination. Additional humans' living quarters, bathing facilities, and food selections are the same as your own, but no other facilities or amenities are expanded (you may share what you wish).",
       singlepick: false,
       mandatory: false,
       exclusive: false,
@@ -499,6 +499,22 @@ const gameData = {
           description:
             "One human, aged 18-35. You may specify their nationality, gender, education level, degree (if applicable), profession, and 1 hobby.",
           cost: 5,
+        },
+      ],
+    },
+    {
+      id: "section-11",
+      title: "Investment",
+      singlepick: false,
+      mandatory: false,
+      exclusive: false,
+      items: [
+        {
+          id: "inv-a",
+          name: "Investment",
+          description:
+            "You receive $1,000,000 upon arrival, adjusted for inflation.",
+          cost: 1,
         },
       ],
     },
