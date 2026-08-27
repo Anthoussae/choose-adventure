@@ -47,6 +47,30 @@ body {
   left: calc(50% - 600px + 160px); /* page center - half page + half sidebar */
   transform: translateX(-50%);
   width: 280px;
+
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 40px);
+  box-sizing: border-box;
+}
+
+#current-setup {
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-color: black white;
+}
+
+#current-setup::-webkit-scrollbar {
+  width: 10px;
+}
+
+#current-setup::-webkit-scrollbar-track {
+  background: white;
+  border-left: 2px solid black;
+}
+
+#current-setup::-webkit-scrollbar-thumb {
+  background: black;
 }
 
 .section {
